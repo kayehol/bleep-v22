@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import placeholder from '../public/placeholder.png';
 import styled from 'styled-components';
 
@@ -13,7 +14,7 @@ const Style = styled.div`
     a:hover {
         text-decoration: underline;
     }
-    #metadata {
+    #postData {
         margin-left: 2em
     }
 `
@@ -27,13 +28,15 @@ const PostPreview = ({titulo, data, tags, slug}) => {
                 height="128px"
                 width="128px"
             />
-            <div id='metadata'>
-                <a href={slug}>
-                    <h1>{titulo}</h1>
-                    <h4>{data}</h4>
-                </a>
-                <p>{tags}</p>
-            </div>
+            <Link href={`/review/${slug}`} passHref>
+                <div id="postData">
+                    <a>
+                        <h1>{titulo}</h1>
+                        <h4>{data}</h4>
+                        <p>{tags}</p>
+                    </a>
+                </div>
+            </Link>
         </Style>
     )
 }

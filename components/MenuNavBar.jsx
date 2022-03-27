@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import {
     AppBar,
     Container,
@@ -8,12 +10,13 @@ import {
     IconButton,
     Menu,
     MenuItem,
-    Button } from '@mui/material'
-
+    Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
+import logo from '../public/logo.svg';
+
 const MenuNavBar = () => {
-    const pages = ['blog', 'arquivo', 'newsletter', 'playlists', 'eventos', 'listas'];
+    const pages = ['blog', 'reviews', 'newsletter', 'playlists', 'eventos', 'listas'];
     const [anchorElNav, setAnchorElNav] = useState(null);
 
     const handleOpenNavMenu = (event) => {
@@ -25,18 +28,10 @@ const MenuNavBar = () => {
     };
 
     return (
-        <AppBar position="static" color="default" enableColorOnDark>
+        <AppBar position="static" color="transparent">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-                    >
-                        bleep
-                    </Typography>
-
+                    {/* mobile */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -73,22 +68,22 @@ const MenuNavBar = () => {
                             ))}
                         </Menu>
                     </Box>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-                    >
-                        bleep
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    {/* desktop */}
+                    <Box sx={{ flexGrow: 1, justifyContent: 'center', display: { xs: 'none', md: 'flex' } }}>
+                        <Button onClick={handleCloseNavMenu} >
+                            <Link href='/' passHref>
+                                <Image src={logo} alt="Logo" width="50%" height="50%" sx={{ my: 2, color: 'white', display: 'block' }} />
+                            </Link>
+                        </Button>
                         {pages.map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                <Link href={`/${page}`} passHref>
+                                    {page}
+                                </Link>
                             </Button>
                         ))}
                     </Box>
