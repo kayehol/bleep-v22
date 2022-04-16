@@ -1,37 +1,26 @@
+import { useState, useEffect } from "react";
 import PostPreview from './PostPreview';
 
 const Feed = () => {
-    const posts = [
-        {
-            titulo: 'Wicca Surf EP',
-            tags: 'EP, Electro, Maceió',
-            slug: 'wicca-surf'
-        },
-        {
-            titulo: 'Krav AKBC',
-            tags: 'LP, Contagem, Trap',
-            slug: 'krav'
-        },
-        {
-            titulo: 'Super Amarelo',
-            tags: 'LP, Arapiraca, Indie',
-            slug: 'super-amarelo'
-        },
-        {
-            titulo: 'Quarto Vazio',
-            tags: 'EP, Maceió, Shoegaze',
-            slug: 'quarto-vazio'
+    const [posts, setPosts] = useState([])
+    
+    useEffect(() => {
+        async function fetchPosts() {
+            let response = await fetch('http://localhost:1337/api/posts')
+            response = await response.json()
+            setPosts(response.data)
         }
-    ];
+        fetchPosts()
+    }, [posts])
     return(
         <>
-            {posts.map((post, idx) => (
+            {posts !== [] && posts.map((post, idx) => (
                 <PostPreview
                     key={idx}
-                    titulo={post.titulo}
-                    data={new Date().toDateString()}
-                    tags={post.tags}
-                    slug={post.slug}
+                    titulo={post.attributes.Titulo}
+                    data={post.attributes.publishedAt}
+                    tags={post.attributes.tags}
+                    slug={post.id}
                 />
             ))}
         </>
