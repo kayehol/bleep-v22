@@ -18,7 +18,7 @@ const Feed = ({ posts }) => {
 }
 
 export async function getStaticProps() {
-    let response = await fetch('http://localhost:1337/api/posts')
+    const response = await fetch('http://localhost:1337/api/posts')
     const posts = await response.json()
     return {
         props: {
