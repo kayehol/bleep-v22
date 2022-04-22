@@ -1,20 +1,10 @@
 import { useState, useEffect } from "react";
 import PostPreview from './PostPreview';
 
-const Feed = () => {
-    const [posts, setPosts] = useState([])
-    
-    useEffect(() => {
-        async function fetchPosts() {
-            let response = await fetch('http://localhost:1337/api/posts')
-            response = await response.json()
-            setPosts(response.data)
-        }
-        fetchPosts()
-    }, [posts])
+const Feed = ({ posts }) => {
     return(
         <>
-            {posts !== [] && posts.map((post, idx) => (
+            {posts.map((post, idx) => (
                 <PostPreview
                     key={idx}
                     titulo={post.attributes.Titulo}
@@ -26,4 +16,15 @@ const Feed = () => {
         </>
     )
 }
+
+export async function getStaticProps() {
+    let response = await fetch('http://localhost:1337/api/posts')
+    const posts = await response.json()
+    return {
+        props: {
+            posts,
+        },
+    }
+}
+
 export default Feed;
