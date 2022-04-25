@@ -7,7 +7,7 @@ const Style = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    width: 100%;
+    width: 600px;
     text-align: left;
     border-bottom: 1px solid #101010;
     padding: 1em;

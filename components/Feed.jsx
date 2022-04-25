@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
 import PostPreview from './PostPreview';
 
-const Feed = ({ posts }) => {
+const Feed = ( {content} ) => {
+    if (!content) <>Erro ao buscar posts</>
     return(
         <>
-            {posts.map((post, idx) => (
+            {content.map((post, idx) => (
                 <PostPreview
                     key={idx}
                     titulo={post.attributes.Titulo}
@@ -15,16 +15,6 @@ const Feed = ({ posts }) => {
             ))}
         </>
     )
-}
-
-export async function getStaticProps() {
-    const response = await fetch('http://localhost:1337/api/posts')
-    const posts = await response.json()
-    return {
-        props: {
-            posts,
-        },
-    }
 }
 
 export default Feed;
