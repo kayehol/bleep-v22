@@ -1,43 +1,37 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Grid, Typography } from '@mui/material';
 import placeholder from '../public/placeholder.png';
-import styled from 'styled-components';
-
-const Style = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 600px;
-    text-align: left;
-    border-bottom: 1px solid #101010;
-    padding: 1em;
-    a:hover {
-        text-decoration: underline;
-    }
-    #postData {
-        margin-left: 2em
-    }
-`
 
 const PostPreview = ({titulo, data, tags, slug}) => {
     return(
-        <Style>
-            <Image 
-                src={placeholder} 
-                alt="Imagem"
-                height="128px"
-                width="128px"
-            />
-            <Link href={`/review/${slug}`} passHref>
-                <div id="postData">
-                    <a>
-                        <h1>{titulo}</h1>
-                        <h4>{data}</h4>
-                        <p>{tags}</p>
-                    </a>
-                </div>
-            </Link>
-        </Style>
+        <Grid 
+            container
+            spacing={4}
+            direction="row"
+            alignItems="center"
+            justifyContent="left"
+        >
+            <Grid item xs={2} >
+                <Image 
+                    src={placeholder} 
+                    alt="Imagem"
+                    height="128px"
+                    width="128px"
+                />
+            </Grid>
+            <Grid item xs={{ textOverflow: 'clip'}}>
+                    <div id="postData">
+                        <Typography variant="h5" noWrap>
+                            <Link href={`/review/${slug}`} passHref>
+                                {titulo}
+                            </Link>
+                        </Typography>
+                        <Typography variant="caption">{data.replace(/T/, ' ').replace(/\..+/, '')}</Typography>
+                        <Typography variant="subtitle2">{tags}</Typography>
+                    </div>
+            </Grid>
+        </Grid>
     )
 }
 export default PostPreview;
